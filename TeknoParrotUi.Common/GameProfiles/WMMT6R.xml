@@ -113,15 +113,6 @@
       <FieldOptions />
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>Network</CategoryName>
-      <FieldName>RouterIP</FieldName>
-      <FieldValue></FieldValue>
-      <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
-    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>NetworkAdapterIP</FieldName>
       <FieldValue></FieldValue>
@@ -242,8 +233,8 @@
   <ExecutableName>wmn6r.exe</ExecutableName>
   <ExecutableName2>amauthd.exe</ExecutableName2>
   <HasTwoExecutables>true</HasTwoExecutables>
-  <HasRouterIP>true</HasRouterIP>
-  <RouterIP></RouterIP>
+  <HasAdapterIP>true</HasAdapterIP>
+  <AdapterIP></AdapterIP>
   <LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
   <GamePath2></GamePath2>
   <xAxisMin>0</xAxisMin>

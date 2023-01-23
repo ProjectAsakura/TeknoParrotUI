@@ -69,11 +69,11 @@
         <TextBox x:Name="GamePathBox" PreviewMouseDown="SelectExecutableForTextBox" IsReadOnly="true" Tag="SettingsTxt" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="0,6,0,6" Text="C:\Demo\Path\file.exe"/>
         <TextBlock x:Name="GameExecutable2Text" TextWrapping="Wrap" Text="{x:Static p:Resources.GameSettingsGameExecutable}" Grid.Row="3" Grid.Column="1" Margin="0,6,0,6"/>
         <TextBox x:Name="GamePathBox2" PreviewMouseDown="SelectExecutable2ForTextBox" IsReadOnly="true" Tag="SettingsTxt" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top" Margin="0,6,0,6" Text="C:\Demo\Path\file.exe"/>
-        <TextBlock x:Name="RouterIPText" TextWrapping="Wrap" Text="RouterIP" Grid.Row="5" Grid.Column="1" Margin="0,12,0,6" Grid.ColumnSpan="2" VerticalAlignment="Top"/>
-        <ComboBox x:Name="RouterIPBox" Grid.Row="5" Grid.Column="1" VerticalAlignment="Top" Margin="63,6,0,0" SelectionChanged="RouterIPBox_SelectionChanged"></ComboBox>
+        <TextBlock x:Name="AdapterIPText" TextWrapping="Wrap" Text="Network Adapter IP" Grid.Row="5" Grid.Column="1" Margin="0,6,0,6" Grid.ColumnSpan="2" VerticalAlignment="Top"/>
+        <ComboBox x:Name="AdapterIPBox" Grid.Row="5" Grid.Column="1" VerticalAlignment="Top" Margin="0,26,0,0" SelectionChanged="AdapterIPBox_SelectionChanged"></ComboBox>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="0,50,0,0">
-            <ItemsControl Name="GameSettingsList">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Margin="0,65,0,0">
+            <ItemsControl Name="GameSettingsList" Height="444">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <UniformGrid Columns="2">
@@ -85,7 +85,7 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
-                            <TextBox Margin="0,0,0,5" Text="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=TextField}" Tag="SettingsTxt">
+                            <TextBox Name="FieldName" Margin="0,0,0,5" Text="{Binding FieldValue, Mode=TwoWay}" Visibility="{Binding Path=FieldType, Converter={StaticResource gameSettingsVisibilityConverter}, ConverterParameter=TextField}" Tag="SettingsTxt">
                                 <TextBox.ToolTip>
                                     <ToolTip Style="{StaticResource teknoHint}"></ToolTip>
                                 </TextBox.ToolTip>

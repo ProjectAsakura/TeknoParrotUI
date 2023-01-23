@@ -31,7 +31,7 @@ namespace TeknoParrotUi.UserControls
         private InputApi _inputApi = InputApi.DirectInput;
         private bool SubmissionNameBad;
         private bool ItemAdded = false;
-        private String SelectedRouterIP;
+        private String SelectedAdapterIP;
 
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ContentControl contentControl, Library library)
         {
@@ -41,13 +41,13 @@ namespace TeknoParrotUi.UserControls
             GamePathBox.Text = _gameProfile.GamePath;
             GamePathBox2.Text = _gameProfile.GamePath2;
 
-            if(!string.IsNullOrEmpty(SelectedRouterIP))
+            if(!string.IsNullOrEmpty(SelectedAdapterIP))
             {
-                RouterIPBox.SelectedValue = SelectedRouterIP;
+                AdapterIPBox.SelectedValue = SelectedAdapterIP;
             }
             else
             {
-                RouterIPBox.SelectedValue = _gameProfile.RouterIP;
+                AdapterIPBox.SelectedValue = _gameProfile.AdapterIP;
             }
             
 
@@ -80,15 +80,18 @@ namespace TeknoParrotUi.UserControls
                 GamePathBox2.Visibility = Visibility.Collapsed;
             }
 
-            if (_gameProfile.HasRouterIP)
+            if (_gameProfile.HasAdapterIP)
             {
-                RouterIPText.Visibility = Visibility.Visible;
-                RouterIPBox.Visibility = Visibility.Visible;
+                AdapterIPBox.Visibility = Visibility.Visible;
+                AdapterIPBox.Visibility = Visibility.Visible;
             }
             else
             {
-                RouterIPText.Visibility = Visibility.Collapsed;
-                RouterIPBox.Visibility = Visibility.Collapsed;
+                AdapterIPText.Visibility = Visibility.Collapsed;
+                AdapterIPText.Visibility = Visibility.Collapsed;
+
+                AdapterIPBox.Visibility = Visibility.Collapsed;
+                AdapterIPBox.Visibility = Visibility.Collapsed;
             }
 
             if (ItemAdded == false)
@@ -101,7 +104,7 @@ namespace TeknoParrotUi.UserControls
                         {
                             if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                             {
-                                RouterIPBox.Items.Add(ip.Address.ToString());
+                                AdapterIPBox.Items.Add(ip.Address.ToString());
                             }
                         }
                     }
@@ -204,9 +207,9 @@ namespace TeknoParrotUi.UserControls
                 _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name").FieldValue = NameString;
             }
 
-            if (string.IsNullOrEmpty(SelectedRouterIP))
+            if (string.IsNullOrEmpty(SelectedAdapterIP))
             {
-                SelectedRouterIP = _gameProfile.RouterIP;
+                SelectedAdapterIP = _gameProfile.AdapterIP;
             }
 
             if (!SubmissionNameBad)
@@ -219,7 +222,7 @@ namespace TeknoParrotUi.UserControls
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
                 _library.ListUpdate(_gameProfile.GameName);
                 _contentControl.Content = _library;
-                _gameProfile.RouterIP = SelectedRouterIP;
+                _gameProfile.AdapterIP = SelectedAdapterIP;
             }
         }
 
@@ -231,14 +234,15 @@ namespace TeknoParrotUi.UserControls
             _contentControl.Content = _library;
         }
 
-        private void RouterIPBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AdapterIPBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
             if (!comboBox.IsLoaded)
                 return;
 
-            SelectedRouterIP = comboBox.SelectedValue.ToString();
-            _gameProfile.ConfigValues.Find(cv => cv.FieldName == "RouterIP").FieldValue = comboBox.SelectedValue.ToString();
+            SelectedAdapterIP = comboBox.SelectedValue.ToString();
+            _gameProfile.AdapterIP = comboBox.SelectedValue.ToString();
+            _gameProfile.ConfigValues.Find(cv => cv.FieldName == "NetworkAdapterIP").FieldValue = comboBox.SelectedValue.ToString();
         }
     }
 }
