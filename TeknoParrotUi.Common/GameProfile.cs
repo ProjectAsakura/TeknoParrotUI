@@ -48,8 +48,6 @@ namespace TeknoParrotUi.Common
         public string ExecutableName { get; set; }
         public string ExecutableName2 { get; set; }
         public bool HasTwoExecutables { get; set; } = true;
-        public bool HasAdapterIP { get; set; } = true;
-        public string AdapterIP { get; set; }
         public bool LaunchSecondExecutableFirst { get; set; } = true;
         public string SecondExecutableArguments { get; set; }
         public string GamePath2 { get; set; }
