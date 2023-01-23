@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Data;
+using System.Collections;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -30,8 +31,6 @@ namespace TeknoParrotUi.UserControls
         private Library _library;
         private InputApi _inputApi = InputApi.DirectInput;
         private bool SubmissionNameBad;
-        private bool ItemAdded = false;
-        private String SelectedAdapterIP;
 
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ContentControl contentControl, Library library)
         {
@@ -40,16 +39,6 @@ namespace TeknoParrotUi.UserControls
 
             GamePathBox.Text = _gameProfile.GamePath;
             GamePathBox2.Text = _gameProfile.GamePath2;
-
-            if(!string.IsNullOrEmpty(SelectedAdapterIP))
-            {
-                AdapterIPBox.SelectedValue = SelectedAdapterIP;
-            }
-            else
-            {
-                AdapterIPBox.SelectedValue = _gameProfile.AdapterIP;
-            }
-            
 
             GameSettingsList.ItemsSource = gameProfile.ConfigValues;
             _contentControl = contentControl;
@@ -80,35 +69,18 @@ namespace TeknoParrotUi.UserControls
                 GamePathBox2.Visibility = Visibility.Collapsed;
             }
 
-            if (_gameProfile.HasAdapterIP)
+            _gameProfile.ConfigValues.Find(cv => cv.FieldName == "NetworkAdapterIP").FieldOptions.Clear();
+            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
             {
-                AdapterIPBox.Visibility = Visibility.Visible;
-                AdapterIPBox.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                AdapterIPText.Visibility = Visibility.Collapsed;
-                AdapterIPText.Visibility = Visibility.Collapsed;
-
-                AdapterIPBox.Visibility = Visibility.Collapsed;
-                AdapterIPBox.Visibility = Visibility.Collapsed;
-            }
-
-            if (ItemAdded == false)
-            {
-                foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+                if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
                 {
-                    if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                    foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
                     {
-                        foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
+                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                         {
-                            if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                            {
-                                AdapterIPBox.Items.Add(ip.Address.ToString());
-                            }
+                            _gameProfile.ConfigValues.Find(cv => cv.FieldName == "NetworkAdapterIP").FieldOptions.Add(ip.Address.ToString());
                         }
                     }
-                    ItemAdded = true;
                 }
             }
         }
@@ -207,11 +179,6 @@ namespace TeknoParrotUi.UserControls
                 _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Submission Name").FieldValue = NameString;
             }
 
-            if (string.IsNullOrEmpty(SelectedAdapterIP))
-            {
-                SelectedAdapterIP = _gameProfile.AdapterIP;
-            }
-
             if (!SubmissionNameBad)
             {
                 JoystickHelper.SerializeGameProfile(_gameProfile);
@@ -222,7 +189,6 @@ namespace TeknoParrotUi.UserControls
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
                 _library.ListUpdate(_gameProfile.GameName);
                 _contentControl.Content = _library;
-                _gameProfile.AdapterIP = SelectedAdapterIP;
             }
         }
 
@@ -232,17 +198,6 @@ namespace TeknoParrotUi.UserControls
             _library.ListUpdate(_gameProfile.GameName);
 
             _contentControl.Content = _library;
-        }
-
-        private void AdapterIPBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox comboBox = (ComboBox)sender;
-            if (!comboBox.IsLoaded)
-                return;
-
-            SelectedAdapterIP = comboBox.SelectedValue.ToString();
-            _gameProfile.AdapterIP = comboBox.SelectedValue.ToString();
-            _gameProfile.ConfigValues.Find(cv => cv.FieldName == "NetworkAdapterIP").FieldValue = comboBox.SelectedValue.ToString();
         }
     }
 }

@@ -112,15 +112,15 @@
       <FieldMax>0</FieldMax>
       <FieldOptions />
     </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>NetworkAdapterIP</FieldName>
-      <FieldValue></FieldValue>
-      <FieldType>Text</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>0</FieldMax>
-      <FieldOptions />
-    </FieldInformation>
+	<FieldInformation>
+		<CategoryName>General</CategoryName>
+		<FieldName>NetworkAdapterIP</FieldName>
+		<FieldValue></FieldValue>
+		<FieldType>Dropdown</FieldType>
+		<FieldMin>0</FieldMin>
+		<FieldMax>0</FieldMax>
+		<FieldOptions />
+	</FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -233,8 +233,6 @@
   <ExecutableName>wmn6r.exe</ExecutableName>
   <ExecutableName2>amauthd.exe</ExecutableName2>
   <HasTwoExecutables>true</HasTwoExecutables>
-  <HasAdapterIP>true</HasAdapterIP>
-  <AdapterIP></AdapterIP>
   <LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
   <GamePath2></GamePath2>
   <xAxisMin>0</xAxisMin>
