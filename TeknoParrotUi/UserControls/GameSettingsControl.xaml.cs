@@ -9,6 +9,9 @@ using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
+using System.Data;
+using System.Collections;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -21,7 +24,7 @@ namespace TeknoParrotUi.UserControls
         {
             InitializeComponent();
         }
-        
+
         private GameProfile _gameProfile;
         private ListBoxItem _comboItem;
         private ContentControl _contentControl;
@@ -64,6 +67,21 @@ namespace TeknoParrotUi.UserControls
             {
                 GameExecutable2Text.Visibility = Visibility.Collapsed;
                 GamePathBox2.Visibility = Visibility.Collapsed;
+            }
+
+            _gameProfile.ConfigValues.Find(cv => cv.FieldName == "NetworkAdapterIP").FieldOptions.Clear();
+            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                {
+                    foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            _gameProfile.ConfigValues.Find(cv => cv.FieldName == "NetworkAdapterIP").FieldOptions.Add(ip.Address.ToString());
+                        }
+                    }
+                }
             }
         }
 

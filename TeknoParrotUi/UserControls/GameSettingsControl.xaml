@@ -108,4 +108,3 @@
         <Button Click="BtnGoBack" MaxHeight="30" Margin="7,1,1,10" Content="{x:Static p:Resources.Back}" Grid.Row="7" Height="Auto" Grid.Column="1"/>
     </Grid>
 </UserControl>
-

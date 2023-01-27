@@ -47,8 +47,8 @@ namespace TeknoParrotUi.Common
         public bool DevOnly { get; set; }
         public string ExecutableName { get; set; }
         public string ExecutableName2 { get; set; }
-        public bool HasTwoExecutables { get; set; } = false;
-        public bool LaunchSecondExecutableFirst { get; set; } = false;
+        public bool HasTwoExecutables { get; set; } = true;
+        public bool LaunchSecondExecutableFirst { get; set; } = true;
         public string SecondExecutableArguments { get; set; }
         public string GamePath2 { get; set; }
         // advanced users only!
