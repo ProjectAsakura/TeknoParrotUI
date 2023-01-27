@@ -1292,7 +1292,7 @@ namespace TeknoParrotUi.Views
         private void RunAndWait(string loaderExe, string daemonPath)
         {
             Process.Start(new ProcessStartInfo(loaderExe, daemonPath));
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
         }
 
         private Thread CreateInputListenerThread()
