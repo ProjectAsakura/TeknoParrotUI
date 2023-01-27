@@ -79,7 +79,7 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
-      <FieldValue>1</FieldValue>
+      <FieldValue>20</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
@@ -88,7 +88,7 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
-      <FieldValue>1</FieldValue>
+      <FieldValue>50</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
